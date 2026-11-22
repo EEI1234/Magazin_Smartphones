@@ -1,0 +1,170 @@
+header {
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+    color: #f8fafc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 1.65rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 2rem 0.5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #38bdf8;
+}
+
+/*BARA DE NAVIGARE & MENIU DERULANT*/
+.navbar {
+    background-color: rgba(15, 23, 42, 0.6);
+    border-top: 1px solid #334155;
+    padding: 0 2rem;
+}
+
+.meniu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.meniu > li {
+    position: relative;
+}
+
+.meniu > li > a {
+    display: block;
+    color: #f1f5f9;
+    text-decoration: none;
+    padding: 0.85rem 1.1rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.meniu > li > a:hover {
+    background-color: #334155;
+    color: #38bdf8;
+}
+
+.meniu > li:has(.submeniu) > a::after {
+    content: " ▾";
+    font-size: 0.85em;
+    opacity: 0.85;
+}
+
+/* Submeniul derulant */
+.submeniu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    background-color: #1e293b;
+    list-style: none;
+    border-top: 2px solid #38bdf8;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
+}
+
+/* Afișare la hover sau navigare cu tastatura */
+.meniu > li:hover > .submeniu,
+.meniu > li:focus-within > .submeniu {
+    display: block;
+    animation: dropFade 0.2s ease-out;
+}
+
+.submeniu li a {
+    display: block;
+    padding: 0.7rem 1.15rem;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    transition: background-color 0.2s ease, padding-left 0.2s ease, color 0.2s ease;
+}
+
+.submeniu li:last-child a {
+    border-bottom: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.submeniu li a:hover {
+    background-color: #334155;
+    color: #38bdf8;
+    padding-left: 1.45rem;
+}
+
+@keyframes dropFade {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*RESPONSIVE PENTRU HEADER & MENIU*/
+@media (max-width: 992px) {
+    header h1 {
+        padding: 0.85rem 1.25rem 0.5rem 1.25rem;
+        font-size: 1.45rem;
+    }
+
+    .navbar {
+        padding: 0 1rem;
+    }
+
+    .meniu > li > a {
+        padding: 0.75rem 0.85rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        position: static;
+    }
+
+    .navbar {
+        padding: 0;
+    }
+
+    .meniu {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .meniu > li > a {
+        border-bottom: 1px solid #334155;
+        padding: 0.85rem 1.25rem;
+    }
+
+    .submeniu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-top: none;
+        border-left: 3px solid #38bdf8;
+        border-radius: 0;
+        background-color: #0f172a;
+    }
+
+    .submeniu li a {
+        padding-left: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+}

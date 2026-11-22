@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/stil.css' %}" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/nav.css' %}" type="text/css">
+        <title>{% block title %}Magazin Smartphones{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <h1>Magazin Smartphones</h1>
+            <nav class="navbar">
+                <ul class="meniu">
+                    <li>
+                        <a href="{% url 'index' %}">Acasă</a>
+                        <ul class="submeniu">
+                            <li><a href="{% url 'index' %}#oferte">Prezentare și oferte</a></li>
+                            <li><a href="{% url 'index' %}#categorii">Categorii dispozitive</a></li>
+                            <li><a href="{% url 'index' %}#servicii-rapide">Servicii rapide</a></li>
+                            <li><a href="{% url 'index' %}#program">Program și depozite</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'despre' %}">Despre noi</a>
+                        <ul class="submeniu">
+                            <li><a href="{% url 'despre' %}#misiune">Povestea și misiunea</a></li>
+                            <li><a href="{% url 'despre' %}#echipa">Ateliere și tehnicieni</a></li>
+                            <li><a href="{% url 'despre' %}#garantie">Garanție și livrare</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'istoric' %}">Istoric</a></li>
+                    <li><a href="{% url 'produse' %}">Produse</a></li>
+                    <li><a href="{% url 'servicii' %}">Servicii Tehnice</a></li>
+                    <li><a href="{% url 'accesorii' %}">Accesorii</a></li>
+                    <li><a href="{% url 'cos_virtual' %}">Coș virtual</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p><strong>{{ date_firma.nume_firma }}</strong> </p>
+            <p>Adresă: {{ date_firma.adresa }}</p> 
+            <p>Înființată în anul {{ date_firma.an_infiintare }} |    CUI: {{ date_firma.cui }}</p>
+            <p>Telefon: {{ date_firma.telefon }} | Email: {{ date_firma.email }}</p>
+            <p>{{copyright}}</p>
+        </footer>
+    </body>
+</html>

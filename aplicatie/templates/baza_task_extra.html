@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <title>Task-uri extra</title>
+    </head>
+    <body>
+        {% block content %}
+            {% if valori_liste %}
+            
+                {% for nume, valori in valori_liste.items %}
+                <ul><strong>{{nume}}:</strong>
+                    {% for valoare in valori %}
+                    <li>
+                        {{valoare}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+            
+            {% endif %}
+        {% endblock %}
+</html>
