@@ -145,7 +145,7 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
-
+#Lab 2 task 2 ex 6
 DATE_FIRMA = {
     'nume_firma': 'Magazin Smartphones SRL',
     'an_infiintare': 2020,

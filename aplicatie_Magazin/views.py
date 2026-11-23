@@ -7,6 +7,7 @@ from collections import Counter
 locale.setlocale(locale.LC_TIME, 'ro_RO.UTF-8')
 lista_accesari = []
 
+#Lab 1 ex 4
 class Accesare:
     contor_id=1
     def __init__(self,ip_client,url,parametri={}):
@@ -19,7 +20,7 @@ class Accesare:
         self.parametri=parametri
         data=dt.now()
         self.data=data
-        
+    #Lab 1 ex 5    
     def lista_parametri(self):
         #print(self.parametri)
         lista_parametri=[]
@@ -38,10 +39,10 @@ class Accesare:
                 lista_parametri.append((key,valori_finale[0]))
         
         return lista_parametri
-    
+    #Lab 1 ex 6
     def string_url(self):
         return self.url.build_absolute_uri()
-
+    #Lab 1 ex 6
     def pagina(self):
         route = self.url.resolver_match.url_name
         if route == 'detalii_accesare':
@@ -51,8 +52,9 @@ class Accesare:
             route = 'info'
         nume_pagina = "/" if route == "index" else "/" + route
         return nume_pagina
-
+    #Lab 1 ex 7
     def calculeaza_data(self, data=''):
+        #Lab 1 ex 10
         if data == "zi":
             format='%e %B %Y'
         elif data == "timp":
@@ -61,7 +63,7 @@ class Accesare:
             format='%A, %e %B %Y'
             
         return self.data.strftime(format).title()
-    
+    #Lab 1 ex 8
     def __str__(self):
         dictionar_accesare={}
         dictionar_accesare["string_url"] = self.string_url()
@@ -76,7 +78,7 @@ class Accesare:
 from django.shortcuts import render
 
 from django.http import HttpResponse
-
+#Lab 1 ex 2
 def index(request):
     a_index=Accesare(get_ip(request),request)
     lista_accesari.append(a_index)
@@ -93,7 +95,7 @@ def index(request):
             "continut_articol":continut_articol
         }
         )
-
+#Lab 2 ex 5
 def afis_istoric(request):
     a_istoric = Accesare(get_ip(request), request)
     lista_accesari.append(a_istoric)
@@ -107,7 +109,7 @@ def afis_istoric(request):
             "continut_articol":continut_articol
         }
     )
-
+#Lab 2 ex 5
 def afis_despre(request):
     a_despre = Accesare(get_ip(request), request)
     lista_accesari.append(a_despre)
@@ -121,10 +123,11 @@ def afis_despre(request):
             "continut_articol":continut_articol
         }
     )
-
+#Lab 1 ex 2
 def afis_info(request, data=""):
     now=dt.now()
     #now_formated = now.strftime('%A, %e %B %Y').title()
+    #Lab 1 ex 3
     a_info=Accesare(get_ip(request),request)
     lista_accesari.append(a_info)
     #print(a3.string_url())
@@ -147,7 +150,7 @@ def afis_log(request):
     ultimele = request.GET.get('ultimele')
     istoric_accesari = lista_accesari
     mesaj_eroare=''
-    
+    #Lab 2 ex 1
     pagini_accesate = [acc.pagina() for acc in lista_accesari]
     contor_pagini = Counter(pagini_accesate)
     min_accesari = len(lista_accesari) + 1
@@ -185,9 +188,11 @@ def afis_log(request):
             istoric_accesari = []
     
     accesari = request.GET.get('accesari')
+    #Lab 2 ex 2
     sectiune_suplimentara = (accesari == "nr")
+    #Lab 2 ex 3
     sectiune_detalii = (accesari == "detalii")
-    
+    #Lab 2 ex 4
     tabel = request.GET.get('tabel')
     coloane_tabel = []
     randuri_tabel = []
@@ -212,7 +217,7 @@ def afis_log(request):
         
     nume_parametri = list(request.GET.keys())
     nr_parametri = len(nume_parametri)
-    
+    #Lab 2 ex 2
     iduri = request.GET.getlist('iduri')
     iduri_dubluri = request.GET.get("dubluri", "false").lower() == 'true'
 

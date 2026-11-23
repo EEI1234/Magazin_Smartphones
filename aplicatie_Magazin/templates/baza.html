@@ -1,5 +1,5 @@
 {% load static %}
-
+{% comment %} #Lab 2 task 2 ex 2 {% endcomment %}
 <!DOCTYPE html>
 <html lang="ro">
     <head>
@@ -9,6 +9,7 @@
         <title>{% block title %}Magazin Smartphones{% endblock %}</title>
     </head>
     <body>
+        {% comment %} #Lab 2 task 2 ex 4 {% endcomment %}
         <header>
             <h1>Magazin Smartphones</h1>
             <nav class="navbar">
@@ -42,6 +43,7 @@
         <main>
             {% block content %}{% endblock %}
         </main>
+        {% comment %} #Lab 2 task 2 ex 6 {% endcomment %}
         <footer>
             <p><strong>{{ date_firma.nume_firma }}</strong> </p>
             <p>Adresă: {{ date_firma.adresa }}</p> 

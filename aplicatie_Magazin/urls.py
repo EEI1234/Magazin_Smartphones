@@ -11,6 +11,7 @@ urlpatterns = [
     # path('exemplu_template', views.afis_template, name="exemplu_template"),
     # path('exemplu_template2', views.afis_template, name="exemplu_template2"),
     path('log',views.afis_log,name="log"),
+    #Lab 2 task 2 ex 10
     path('produse', views.in_lucru, name="produse"),
     path('servicii', views.in_lucru, name="servicii"),
     path('accesorii', views.in_lucru, name="accesorii"),
