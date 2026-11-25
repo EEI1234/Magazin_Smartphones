@@ -60,7 +60,7 @@ class Accesare:
         elif data == "timp":
             format='%T'
         else:
-            format='%A, %e %B %Y'
+            format='%A, %e %B %Y %T'
             
         return self.data.strftime(format).title()
     #Lab 1 ex 8
