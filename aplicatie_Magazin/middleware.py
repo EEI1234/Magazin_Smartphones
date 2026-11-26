@@ -7,7 +7,7 @@ def get_ip(request):
             return request.META.get('REMOTE_ADDR')
 
 #nr_total_accesari = 0
-#Lab 1 ex 8 + #Lab 2 task 2 ex 6
+#Lab 1 ex 8 - Middleware pt obtinerea ip-ului utilizatorilor + #Lab 2 task 2 ex 6
 class MiddlewareNou:
     def __init__(self, get_response):
         self.get_response = get_response

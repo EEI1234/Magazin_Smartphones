@@ -7,7 +7,7 @@ from collections import Counter
 locale.setlocale(locale.LC_TIME, 'ro_RO.UTF-8')
 lista_accesari = []
 
-#Lab 1 ex 4
+#Lab 1 ex 4 - Creare clasa Accesare cu prop id, ip_client, url, parametri (dictionar), data (setat la data curenta)
 class Accesare:
     contor_id=1
     def __init__(self,ip_client,url,parametri={}):
@@ -20,7 +20,7 @@ class Accesare:
         self.parametri=parametri
         data=dt.now()
         self.data=data
-    #Lab 1 ex 5    
+    #Lab 1 ex 5 - metoda lista_parametri returneaza o lista de tupluri cu I val numele, II val parametrului sau None
     def lista_parametri(self):
         #print(self.parametri)
         lista_parametri=[]
@@ -39,10 +39,10 @@ class Accesare:
                 lista_parametri.append((key,valori_finale[0]))
         
         return lista_parametri
-    #Lab 1 ex 6
+    #Lab 1 ex 6 - string_url returneaza url-ul cu query string
     def string_url(self):
         return self.url.build_absolute_uri()
-    #Lab 1 ex 6
+    #Lab 1 ex 6 - pagina returneaza doar numele paginii /info, /
     def pagina(self):
         route = self.url.resolver_match.url_name
         if route == 'detalii_accesare':
@@ -52,9 +52,9 @@ class Accesare:
             route = 'info'
         nume_pagina = "/" if route == "index" else "/" + route
         return nume_pagina
-    #Lab 1 ex 7
+    #Lab 1 ex 7 - metoda primeste un obiect de tip string de formatare  
     def calculeaza_data(self, data=''):
-        #Lab 1 ex 10
+        #Lab 1 ex 10 - parametrul data care primeste zi/timp pt a afisa data/ora
         if data == "zi":
             format='%e %B %Y'
         elif data == "timp":
@@ -63,7 +63,7 @@ class Accesare:
             format='%A, %e %B %Y %T'
             
         return self.data.strftime(format).title()
-    #Lab 1 ex 8
+    #Lab 1 ex 9 - afiseaza datele unei accesari in format "camp:valoare la fiecare pagina a site-ului"
     def __str__(self):
         dictionar_accesare={}
         dictionar_accesare["string_url"] = self.string_url()
@@ -99,6 +99,7 @@ def index(request):
 def afis_istoric(request):
     a_istoric = Accesare(get_ip(request), request)
     lista_accesari.append(a_istoric)
+    print(a_istoric.__str__())
     titlu_tab = 'Istoricul'
     titlu_articol = "Istoricul magazinului nostru"
     continut_articol = '<p id="request_text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Afacerea noastră a pornit în anul 2020 dintr-un mic atelier de reparații GSM din București, având ca pasiune principală tehnologia mobilă și dorința de a oferi clienților dispozitive verificate și de încredere.<br>&nbsp;&nbsp;&nbsp;&nbsp;De-a lungul timpului, ne-am extins activitatea de la simple intervenții hardware la comercializarea unei game variate de telefoane mobile noi și recondiționate, dezvoltând totodată această platformă online pentru a facilita accesul clienților din toată țara la produsele și serviciile noastre.</p>'
@@ -113,6 +114,7 @@ def afis_istoric(request):
 def afis_despre(request):
     a_despre = Accesare(get_ip(request), request)
     lista_accesari.append(a_despre)
+    print(a_despre.__str__())
     titlu_tab = 'Despre noi'
     titlu_articol = "Despre noi și echipa noastră"
     continut_articol = '<p id="request_text">&nbsp;&nbsp;&nbsp;&nbsp;Suntem o echipă dedicată de tehnicieni și consultanți specializați în ecosistemele iOS și Android, pregătiți să te ajute să alegi telefonul potrivit nevoilor și bugetului tău.<br>&nbsp;&nbsp;&nbsp;&nbsp;Fiecare dispozitiv second-hand din oferta noastră trece printr-un proces riguros de testare în 30 de puncte înainte de a fi listat pe site, beneficiind de garanție și suport tehnic post-vânzare.</p>'
@@ -123,11 +125,11 @@ def afis_despre(request):
             "continut_articol":continut_articol
         }
     )
-#Lab 1 ex 2
+#Lab 1 ex 2 - pagina /info afiseaza "Informatii despre server" ca titlu tab si h1
 def afis_info(request, data=""):
     now=dt.now()
     #now_formated = now.strftime('%A, %e %B %Y').title()
-    #Lab 1 ex 3
+    #Lab 1 ex 3 - Sectiune "data si ora"
     a_info=Accesare(get_ip(request),request)
     lista_accesari.append(a_info)
     #print(a3.string_url())
@@ -147,10 +149,11 @@ def afis_info(request, data=""):
 def afis_log(request):
     a_log = Accesare(get_ip(request),request)
     lista_accesari.append(a_log)
+    print(a_log.__str__())
     ultimele = request.GET.get('ultimele')
     istoric_accesari = lista_accesari
     mesaj_eroare=''
-    #Lab 2 ex 1
+    #Lab 2 ex 1 - pagina log arata toate cererile catre paginile din site. Poate primi parametrul ultimele=nr intreg (altfel eroare) pt a arata ultimele n accesari daca n > total afisari afiseaza mesaj
     pagini_accesate = [acc.pagina() for acc in lista_accesari]
     contor_pagini = Counter(pagini_accesate)
     min_accesari = len(lista_accesari) + 1
@@ -188,9 +191,11 @@ def afis_log(request):
             istoric_accesari = []
     
     accesari = request.GET.get('accesari')
-    #Lab 2 ex 2
+    #Lab 2 ex 2 - pagina cand primeste accesari=nr(string), afiseaza si nr accesari de cand a pornit
+    #            - pagina primeste iduri=2,3&iduri=5&iduri=4,2,1 + dubluri=true pt a se vedea si nr repetate
     sectiune_suplimentara = (accesari == "nr")
-    #Lab 2 ex 3
+    #Lab 2 ex 3 - pagina cand primeste accesari=detalii, afiseaza ca ul data si ora la care s-a facut accesarea.
+    #            - pagina are si o sectiune parametrii care arata parametrii primiti si numele lor
     sectiune_detalii = (accesari == "detalii")
     #Lab 2 ex 4
     tabel = request.GET.get('tabel')
@@ -282,6 +287,7 @@ def detalii_accesare(request,id_acc):
 
 def in_lucru(request):
     a_in_lucru = Accesare(get_ip(request), request)
+    print(a_in_lucru.__str__())
     lista_accesari.append(a_in_lucru)
     return render(request, "in_lucru.html",{
         "continut_articol": "<p>Această secțiune a magazinului nostru online este momentan în curs de dezvoltare. Echipa noastră lucrează la adăugarea funcționalităților și a conținutului dedicat. Te rugăm să revii în curând!</p>"
